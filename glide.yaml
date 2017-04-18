@@ -1,0 +1,2 @@
+import:
+- package: github.com/stretchr/testify
