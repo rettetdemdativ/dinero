@@ -12,16 +12,22 @@ dinero is a [Go](https://golang.org) package for fetching exchange rates and con
 
 ### Converting a value in one currency to another
 
-    a := Amount{Value: 5, Currency: USD}
-    res, _ := a.ConvertTo(EUR)
-    // res contains the converted value
+```go
+a := Amount{Value: 5, Currency: USD}
+res, _ := a.ConvertTo(EUR)
+// res contains the converted value
+```
 
 ### Creating a certain amount of a currency
 
-    u := USD
-    a := u.Amount(25000)
+```go
+u := USD
+a := u.Amount(25000)
+```
 
 ### Printing an amount of a certain currency
 
-    a := Amount{450, JPY}
-    println(a.String())
+```go
+a := Amount{450, JPY}
+println(a.String())
+```
