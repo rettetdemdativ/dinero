@@ -4,7 +4,7 @@ package dinero
 
 const (
 	// The currencies listed below are the ones supported
-	// by the Yahoo finance API and are listed with their
+	// by the ExchangeRates API and are listed with their
 	// symbols and ISO codes.
 
 	// USD -> USDollar ($ / USD)

@@ -15,7 +15,7 @@ const (
 	timeout = time.Second * 5
 )
 
-// Result represents the JSON response from the Yahoo finance API.
+// Result represents the JSON response from the ExchangeRates API.
 type result struct {
 	// The ",string" part tells json's Unmarshal function
 	// that Rate is a string encoded float.
@@ -24,7 +24,7 @@ type result struct {
 	To   string  `json:"to"`
 }
 
-// URL generates a URL for querying the Yahoo finance API.
+// URL generates a URL for querying the ExchangeRates API.
 func URL(from, to string) string {
 	return fmt.Sprintf(url, from, to)
 }
@@ -38,7 +38,7 @@ func customClient() *http.Client {
 	return cc
 }
 
-// Sends a GET request to the Yahoo finance API and returns
+// Sends a GET request to the ExchangeRates API and returns
 // the response containing the relevant fields.
 func queryAPI(from, to string) (*result, error) {
 	apiResult := &result{}
@@ -56,7 +56,7 @@ func queryAPI(from, to string) (*result, error) {
 }
 
 // rate is sort of a convenience function to quickly fetch the most
-// recent exchance rate from the Yahoo finance API.
+// recent exchance rate from the ExchangeRates API.
 // It returns only the exchance rate and any error that might occur.
 func rate(from, to string) (float64, error) {
 	res, err := queryAPI(from, to)
