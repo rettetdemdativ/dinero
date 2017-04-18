@@ -12,8 +12,8 @@ type Amount struct {
 	Currency Currency
 }
 
-// ConvertToMv converts mv to another target currency. It returns the converted
-// money value or an error.
+// ConvertToMv converts Amount a to another target currency. It returns the converted
+// Amount or an error.
 func (a Amount) ConvertToMv(target Currency) (*Amount, error) {
 	resval := &Amount{}
 	rate, err := rate(currencyCodes[a.Currency], currencyCodes[target])
@@ -25,8 +25,8 @@ func (a Amount) ConvertToMv(target Currency) (*Amount, error) {
 	return resval, nil
 }
 
-// ConvertTo converts mv to another target currency. It returns the converted
-// money value as a float64 or an error.
+// ConvertTo converts Amount a to another target currency. It returns the converted
+// value as a float64 or an error.
 func (a Amount) ConvertTo(target Currency) (float64, error) {
 	res, err := a.ConvertToMv(target)
 	if err != nil {
