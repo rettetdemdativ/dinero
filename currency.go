@@ -2,6 +2,8 @@
 
 package dinero
 
+import "github.com/shopspring/decimal"
+
 const (
 	// The currencies listed below are the ones supported
 	// by the ExchangeRates API and are listed with their
@@ -197,15 +199,26 @@ type Currency uint8
 
 // ExchangeRate returns the exchance rate when exchanging money from
 // the currency c to the target currency or an error.
-func (c Currency) ExchangeRate(target Currency) (float64, error) {
+func (c Currency) ExchangeRate(target Currency) (decimal.Decimal, error) {
 	rate, err := rate(currencyCodes[c], currencyCodes[target])
 	if err != nil {
-		return -1, err
+		return decimal.Zero, err
 	}
 	return rate, nil
 }
 
+// ExchangeRateFloat returns the exchange rate when exchanging money
+// from the currency c to the target currency as a float64 or an error.
+func (c Currency) ExchangeRateFloat(target Currency) (rate float64, exact bool, err error) {
+	dec, err := c.ExchangeRate(target)
+	if err != nil {
+		return -1, false, err
+	}
+	rate, exact = dec.Float64()
+	return rate, exact, nil
+}
+
 // Amount creates an Amount for the given currency unit and amount.
-func (c Currency) Amount(amount float64) Amount {
+func (c Currency) Amount(amount decimal.Decimal) Amount {
 	return Amount{Value: amount, Currency: c}
 }

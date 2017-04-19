@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -58,10 +60,10 @@ func queryAPI(from, to string) (*result, error) {
 // rate is sort of a convenience function to quickly fetch the most
 // recent exchance rate from the ExchangeRates API.
 // It returns only the exchance rate and any error that might occur.
-func rate(from, to string) (float64, error) {
+func rate(from, to string) (decimal.Decimal, error) {
 	res, err := queryAPI(from, to)
 	if err != nil {
-		return -1, err
+		return decimal.Zero, err
 	}
-	return res.Rate, nil
+	return decimal.NewFromFloat(res.Rate), nil
 }
