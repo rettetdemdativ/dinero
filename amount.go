@@ -54,3 +54,14 @@ func NewAmount(value decimal.Decimal, curr Currency) Amount {
 func NewAmountFromFloat(value float64, curr Currency) Amount {
 	return Amount{Value: decimal.NewFromFloat(value), Currency: curr}
 }
+
+// NewAmountFromString tries creating a new amount from the provided string.
+// Should the conversion fail, an error is returned. If the conversion was
+// successful, the function returns the new Amount.
+func NewAmountFromString(value string, curr Currency) (Amount, error) {
+	dec, err := decimal.NewFromString(value)
+	if err != nil {
+		return Amount{}, err
+	}
+	return Amount{Value: dec, Currency: curr}, nil
+}
