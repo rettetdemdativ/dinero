@@ -46,3 +46,32 @@ func TestString(t *testing.T) {
 	str := a.String()
 	assert.Equal(t, expectedResult, str, "Amount strings should match")
 }
+
+func TestNewAmount(t *testing.T) {
+	a := NewAmount(decimal.NewFromFloat(5000.652), sourceCurrency)
+	assert.NotEmpty(t, a, "Created amount must not be empty")
+	assert.Equal(t, decimal.NewFromFloat(5000.652), a.Value, "Amount values should match")
+	assert.Equal(t, sourceCurrency, a.Currency, "Amount currencies should match")
+}
+
+func TestNewAmountFromFloat(t *testing.T) {
+	a := NewAmountFromFloat(5000.652, sourceCurrency)
+	assert.NotEmpty(t, a, "Created amount must not be empty")
+	assert.Equal(t, decimal.NewFromFloat(5000.652), a.Value, "Amount values should match")
+	assert.Equal(t, sourceCurrency, a.Currency, "Amount currencies should match")
+}
+
+func TestNewAmountFromString(t *testing.T) {
+	a, _ := NewAmountFromString("5000.245", sourceCurrency)
+	assert.NotEmpty(t, a, "Created amount must not be empty")
+	assert.Equal(t, decimal.NewFromFloat(5000.245), a.Value, "Amount values should match")
+	assert.Equal(t, sourceCurrency, a.Currency, "Amount currencies should match")
+}
+
+func TestNewAmountFromStringError(t *testing.T) {
+	_, err := NewAmountFromString("%5000,245", sourceCurrency)
+	if err == nil { // error expected
+		t.Error("Error expected")
+	}
+	t.Log(err)
+}

@@ -219,6 +219,18 @@ func (c Currency) ExchangeRateFloat(target Currency) (rate float64, exact bool, 
 }
 
 // Amount creates an Amount for the given currency unit and amount.
-func (c Currency) Amount(amount decimal.Decimal) Amount {
-	return Amount{Value: amount, Currency: c}
+func (c Currency) Amount(value decimal.Decimal) Amount {
+	return NewAmount(value, c)
+}
+
+// AmountFromFloat creates an amount for the given currency unit and a value,
+// which is provided as a float64.
+func (c Currency) AmountFromFloat(value float64) Amount {
+	return NewAmountFromFloat(value, c)
+}
+
+// AmountFromString creates an amount for the given currency unit and a value,
+// which is provided as a string.
+func (c Currency) AmountFromString(value string) (Amount, error) {
+	return NewAmountFromString(value, c)
 }
