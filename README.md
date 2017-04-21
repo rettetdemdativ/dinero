@@ -13,16 +13,32 @@ dinero is a [Go](https://golang.org) package for fetching exchange rates and con
 ### Converting a value in one currency to another
 
 ```go
-a := Amount{Value: decimal.NewFromFloat(5), Currency: USD}
+a := Amount{Value: decimal.NewFromFloat(5.245), Currency: USD}
+// or
+a := NewAmount(decimal.NewFromFloat(5.245), USD)
 res, _ := a.ConvertTo(EUR)
 // res contains the converted value as a decimal
+```
+
+### Creating an amount from a float
+
+```go
+a := NewAmountFromFloat(5.232, EUR)
+```
+
+### Creating an amount from a string
+
+```go
+a := NewAmountFromString("5423.65", JPY)
 ```
 
 ### Creating a certain amount of a currency
 
 ```go
 u := USD
-a := u.Amount(decimal.NewFromFloat(25000))
+a1 := u.Amount(decimal.NewFromFloat(25000))
+a2 := u.AmountFromFloat(7300.32)
+a3 := u.AmountFromString("200.09")
 ```
 
 ### Printing an amount of a certain currency
