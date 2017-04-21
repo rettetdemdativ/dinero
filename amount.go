@@ -42,3 +42,15 @@ func (a Amount) ConvertTo(target Currency) (decimal.Decimal, error) {
 func (a Amount) String() string {
 	return fmt.Sprintf("%s %s", a.Value.String(), currencySymbols[a.Currency])
 }
+
+// NewAmount returns an Amount with the given value and currency.
+// It's sort of a helper function, making the creation of an Amount simpler.
+func NewAmount(value decimal.Decimal, curr Currency) Amount {
+	return Amount{Value: value, Currency: curr}
+}
+
+// NewAmountFromFloat returns an Amount with the given value (provided as float) and currency.
+// It's sort of a helper function, making the creation of an Amount from a float simpler.
+func NewAmountFromFloat(value float64, curr Currency) Amount {
+	return Amount{Value: decimal.NewFromFloat(value), Currency: curr}
+}
