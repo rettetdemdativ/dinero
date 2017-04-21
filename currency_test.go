@@ -42,3 +42,19 @@ func TestAmount(t *testing.T) {
 	assert.Equal(t, decimal.NewFromFloat(5000), a.Value, "Amount values should match")
 	assert.Equal(t, cur, a.Currency, "Amount currencies should match")
 }
+
+func TestAmountFromFloat(t *testing.T) {
+	u := sourceCurrency
+	a := u.AmountFromFloat(5000.652)
+	assert.NotEmpty(t, a, "Amount from float must not be empty")
+	assert.Equal(t, decimal.NewFromFloat(5000.652), a.Value, "Amount values should match")
+	assert.Equal(t, sourceCurrency, a.Currency, "Amount currencies should match")
+}
+
+func TestAmountFromString(t *testing.T) {
+	u := sourceCurrency
+	a, _ := u.AmountFromString("5000.245")
+	assert.NotEmpty(t, a, "Created amount must not be empty")
+	assert.Equal(t, decimal.NewFromFloat(5000.245), a.Value, "Amount values should match")
+	assert.Equal(t, sourceCurrency, a.Currency, "Amount currencies should match")
+}
